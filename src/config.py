@@ -20,3 +20,5 @@ SS = [
     'MiscVal', 'MoSold', 'YrSold', 'BsmtFullBath', 'BsmtHalfBath', 'FullBath', 'HalfBath',
     'BedroomAbvGr', 'KitchenAbvGr', 'TotRmsAbvGrd', 'Fireplaces', 'GarageYrBlt', 'GarageCars',
 ]
+
+TARGET_COLS = ['SalePrice']

@@ -45,9 +45,14 @@ cat_pipe = Pipeline([
     ('encoder', OneHotEncoder(handle_unknown='ignore', sparse=False, dtype=np.int8))
 ])
 
+
 preprocess_pipe = ColumnTransformer(transformers=[
-    ('real_cols', real_pipe,    cfg.REAL_COLS),
-    ('cat_cols',  cat_pipe,     cfg.CAT_COLS),
-    ('ohe_cols', 'passthrough', cfg.OHE_COLS)
+    ('real_cols', real_pipe,    cfg.SS),
+    ('cat_cols',  cat_pipe,     cfg.OHE),
+    ('target',    'passthrough', cfg.TARGET_COLS)
 ])
 
+preprocess_val_pipe = ColumnTransformer(transformers=[
+    ('real_cols', real_pipe,    cfg.SS),
+    ('cat_cols',  cat_pipe,     cfg.OHE)
+])
