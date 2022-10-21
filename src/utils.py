@@ -42,7 +42,7 @@ real_pipe = Pipeline([
 
 cat_pipe = Pipeline([
     ('impute', SimpleImputer(strategy='constant', fill_value='NA')),
-    ('encoder', OneHotEncoder(handle_unknown='ignore', sparse=False, dtype=np.int8, hanle_unknown='ignore'))
+    ('encoder', OneHotEncoder(handle_unknown='ignore', sparse=False, dtype=np.int8, handle_unknown='ignore'))
 ])
 
 
