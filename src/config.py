@@ -1,13 +1,15 @@
 # PATH
 RAW_PATH = 'data/raw/'
 
+RAW_DATA_PATH = 'data/raw/'
+PROCESSED_DATA_PATH = 'data/processed/'
+PROCESSED_TARGET_PATH = 'data/processed/'
+
+RANDOM_STATE=42
 
 # COLS
-TARGET_COLS = ['SalePrice']
-ID_COL = 'Id'
-
-
-
+TARGET_COLS = ['Артериальная гипертензия', 'ОНМК', 'Стенокардия, ИБС, инфаркт миокарда', 'Сердечная недостаточность', 'Прочие заболевания сердца']
+ID_COL = 'ID'
 EDU_COL = 'Образование'
 SEX_COL = 'Пол'
 CAT_COLS = [
@@ -22,8 +24,3 @@ OHE_COLS = [
     'Спорт, клубы', 'Религия, клубы'
 ]
 REAL_COLS = ['Возраст курения', 'Сигарет в день', 'Возраст алког']
-
-RS = 7
-
-
-Id,MSSubClass,MSZoning,LotFrontage,LotArea,Street,Alley,LotShape,LandContour,Utilities,LotConfig,LandSlope,Neighborhood,Condition1,Condition2,BldgType,HouseStyle,OverallQual,OverallCond,YearBuilt,YearRemodAdd,RoofStyle,RoofMatl,Exterior1st,Exterior2nd,MasVnrType,MasVnrArea,ExterQual,ExterCond,Foundation,BsmtQual,BsmtCond,BsmtExposure,BsmtFinType1,BsmtFinSF1,BsmtFinType2,BsmtFinSF2,BsmtUnfSF,TotalBsmtSF,Heating,HeatingQC,CentralAir,Electrical,1stFlrSF,2ndFlrSF,LowQualFinSF,GrLivArea,BsmtFullBath,BsmtHalfBath,FullBath,HalfBath,BedroomAbvGr,KitchenAbvGr,KitchenQual,TotRmsAbvGrd,Functional,Fireplaces,FireplaceQu,GarageType,GarageYrBlt,GarageFinish,GarageCars,GarageArea,GarageQual,GarageCond,PavedDrive,WoodDeckSF,OpenPorchSF,EnclosedPorch,3SsnPorch,ScreenPorch,PoolArea,PoolQC,Fence,MiscFeature,MiscVal,MoSold,YrSold,SaleType,SaleCondition,SalePrice

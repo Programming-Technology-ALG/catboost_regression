@@ -1,4 +1,4 @@
-#!/Users/alexgiving/Documents/PythonProjects/catboost_reg/bin/python3
+#!/Users/alexgiving/Documents/PythonProjects/catboost_regression/venv/bin/python3.10
 # -*- coding: utf-8 -*-
 import re
 import sys

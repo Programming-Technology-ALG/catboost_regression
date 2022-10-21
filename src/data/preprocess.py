@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 import src.config as cfg
-from src.config import TARGET_COLS
 
 
 def drop_unnecesary_id(df: pd.DataFrame) -> pd.DataFrame:
@@ -17,7 +16,7 @@ def fill_sex(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def cast_types(df: pd.DataFrame) -> pd.DataFrame:
-    df[cfg.CAT_COLS] = df[cfg.CAT_COLS].astype('category')
+    df[cfg.CAT_COLS] = df[cfg.CAT_COLS].astype('object')
 
     ohe_int_cols = df[cfg.OHE_COLS].select_dtypes('number').columns
     df[ohe_int_cols] = df[ohe_int_cols].astype(np.int8)
@@ -29,7 +28,7 @@ def cast_types(df: pd.DataFrame) -> pd.DataFrame:
 def set_idx(df: pd.DataFrame, idx_col: str) -> pd.DataFrame:
     df = df.set_index(idx_col)
     return df
-    
+
 
 def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     df = set_idx(df, cfg.ID_COL)
@@ -44,6 +43,6 @@ def preprocess_target(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def extract_target(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
-    df, target = df.drop(cfg.TARGET_COLS, axis=1), df[TARGET_COLS].copy()
+def extract_target(df: pd.DataFrame):# -> tuple(pd.DataFrame, pd.DataFrame):
+    df, target = df.drop(cfg.TARGET_COLS, axis=1), df[cfg.TARGET_COLS]
     return df, target
