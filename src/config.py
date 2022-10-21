@@ -3,36 +3,20 @@ RANDOM_STATE=42
 
 
 OHE = [
-    'MSSubClass', 
+    'MSSubClass', 'MSZoning', 'Street', 'Alley', 'LotShape', 'Street', 'Alley', 
+    'LotShape', 'LandContour', 'Utilities', 'LotConfig', 'LandSlope', 'Neighborhood',
+    'Condition1', 'Condition2', 'BldgType', 'HouseStyle', 'RoofStyle', 'RoofMatl',
+    'Exterior1st', 'Exterior2nd', 'MasVnrType','ExterQual', 'ExterCond',
+    'Foundation', 'BsmtQual', 'BsmtCond', 'BsmtExposure', 'BsmtFinType1', 'BsmtFinType2',
+    'Heating', 'HeatingQC', 'CentralAir', 'Electrical', 'KitchenQual', 'Functional',
+    'FireplaceQu', 'GarageType', 'GarageFinish', 'GarageQual', 'GarageCond', 'PavedDrive',
+    'PoolQC', 'Fence', 'MiscFeature', 'SaleType', 'SaleCondition'
 ]
 
-CATS = [
-        'GarageQual', 'GarageCond', 'PoolQC', 'Fence', 
+SS = [
+    'LotFrontage', 'LotArea', 'YearBuilt', 'YearRemodAdd', 'MasVnrArea', 'BsmtFinSF1', 'BsmtFinSF2', 'BsmtUnfSF',
+    'TotalBsmtSF', '1stFlrSF', '2ndFlrSF', 'LowQualFinSF', 'GrLivArea', 'GarageArea',
+    'WoodDeckSF', 'OpenPorchSF', 'EnclosedPorch', '3SsnPorch', 'ScreenPorch', 'PoolArea',
+    'MiscVal', 'MoSold', 'YrSold', 'BsmtFullBath', 'BsmtHalfBath', 'FullBath', 'HalfBath',
+    'BedroomAbvGr', 'KitchenAbvGr', 'TotRmsAbvGrd', 'Fireplaces', 'GarageYrBlt', 'GarageCars',
 ]
-
-# # PATH
-# RAW_PATH = 'data/raw/'
-
-# RAW_DATA_PATH = 'data/raw/'
-# PROCESSED_DATA_PATH = 'data/processed/'
-# PROCESSED_TARGET_PATH = 'data/processed/'
-
-# 
-
-# # COLS
-# TARGET_COLS = ['Артериальная гипертензия', 'ОНМК', 'Стенокардия, ИБС, инфаркт миокарда', 'Сердечная недостаточность', 'Прочие заболевания сердца']
-# ID_COL = 'ID'
-# EDU_COL = 'Образование'
-# SEX_COL = 'Пол'
-# CAT_COLS = [
-#     'Пол', 'Семья', 'Этнос', 'Национальность', 'Религия', 'Образование', 
-#     'Профессия', 'Статус Курения', 'Частота пасс кур', 'Алкоголь',
-#     'Время засыпания', 'Время пробуждения'
-# ]
-# OHE_COLS = [
-#     'Вы работаете?', 'Выход на пенсию', 'Прекращение работы по болезни', 'Сахарный диабет', 'Гепатит',
-#     'Онкология', 'Хроническое заболевание легких', 'Бронжиальная астма', 'Туберкулез легких ', 'ВИЧ/СПИД',
-#     'Регулярный прим лекарственных средств', 'Травмы за год', 'Переломы','Пассивное курение', 'Сон после обеда', 
-#     'Спорт, клубы', 'Религия, клубы'
-# ]
-# REAL_COLS = ['Возраст курения', 'Сигарет в день', 'Возраст алког']
