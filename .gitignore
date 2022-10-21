@@ -89,3 +89,4 @@ target/
 .mypy_cache/
 catboost_env
 notebooks/catboost_info
+venv
