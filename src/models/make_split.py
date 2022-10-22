@@ -22,9 +22,6 @@ import src.config as cfg
 @click.option('--input_data_filepath',  type=click.Path(exists=True))
 @click.option('--output_selection_path', type=click.Path())
 def main(input_data_filepath, output_selection_path):
-    """ Runs data processing scripts to turn raw data from (../raw) into
-        cleaned data ready to be analyzed (saved in ../processed).
-    """
     logger = logging.getLogger(__name__)
     logger.info('Split data into train and test')
 

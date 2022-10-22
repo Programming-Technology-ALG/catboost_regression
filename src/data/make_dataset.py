@@ -2,7 +2,6 @@
 import sys
 import os
 
-from traitlets import default
 sys.path.append('..')
 sys.path.append(os.path.join(sys.path[0], '../../'))
 
@@ -23,20 +22,13 @@ import pandas as pd
 @click.option('--is_val', default=False, type=bool)
 
 def main(input_filepath, output_data_filepath, output_target_filepath,  output_encoder_filepath, is_val):
-    """ Runs data processing scripts to turn raw data from (../raw) into
-        cleaned data ready to be analyzed (saved in ../processed).
-    """
     logger = logging.getLogger(__name__)
-    logger.info('making final data set from raw data')
+    logger.info('preprocess data')
 
     df = pd.read_csv(input_filepath)
 
     df = preprocess_data(df, output_encoder_filepath, is_val)
     save_as_pickle(df, output_data_filepath)
-    df = load_as_pickle(output_data_filepath)
-
-    save_as_pickle(df, output_target_filepath)
-    df = load_as_pickle(output_target_filepath)
     logger.info(f'Dataset saved to {output_data_filepath}')
 
 

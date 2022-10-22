@@ -9,7 +9,6 @@ import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 from src.utils import save_as_pickle
-import pandas as pd
 from features import *
 
 

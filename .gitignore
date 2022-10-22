@@ -92,3 +92,4 @@ notebooks/catboost_info
 venv
 reports/figures/*
 reports/metrics/*
+/reports

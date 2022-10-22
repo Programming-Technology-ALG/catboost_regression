@@ -20,11 +20,8 @@ from sklearn.linear_model import LinearRegression
 @click.option('--output_metrics_filepath')
 
 def main(input_data_filepath, output_model_filepath, output_metrics_filepath):
-    """ Runs data processing scripts to turn raw data from (../raw) into
-        cleaned data ready to be analyzed (saved in ../processed).
-    """
     logger = logging.getLogger(__name__)
-    logger.info('making final data set from raw data')
+    logger.info('training model')
 
 
     X_train, X_test, Y_train, Y_test = load_as_pickle(input_data_filepath)
@@ -37,6 +34,8 @@ def main(input_data_filepath, output_model_filepath, output_metrics_filepath):
         f.write('MAE on train: {}\n'.format(mean_absolute_error(Y_train, model.predict(X_train))))
         f.write('MAE on test: {}\n'.format(mean_absolute_error(Y_test, model.predict(X_test))))
 
+    logger.info('metrics saved to {}'.format(output_metrics_filepath))
+    
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     logging.basicConfig(level=logging.INFO, format=log_fmt)

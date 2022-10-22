@@ -1,0 +1,41 @@
+stages:
+  preprocess data:
+    cmd: |
+      python src/data/make_dataset.py --input_filepath=data/raw/train.csv --output_data_filepath=data/processed/train_data.pkl --output_encoder_filepath=data/processed/transformer.pkl
+      python src/data/make_dataset.py --input_filepath=data/raw/test.csv --output_data_filepath=data/processed/val_data.pkl --is_val=True --output_encoder_filepath=data/processed/transformer.pkl
+    deps:
+    - data/raw
+    outs:
+    - data/processed:
+        persist: true
+
+  data_separation:
+    cmd: python src/models/make_split.py --input_data_filepath=data/processed/train_data.pkl --output_selection_path=data/interim/train_selection.pkl
+    deps:
+    - data/processed
+    outs:
+    - data/interim:
+        persist: true
+
+  train_cmodels:
+    cmd: |
+      python src/models/train_model.py --input_data_filepath=data/interim/train_selection.pkl --output_model_filepath=data/external/model.pkl --output_metrics_filepath=reports/metrics/metrics.txt --plot_file=reports/figures/learning_curve.html
+      python src/models/linear_reg.py --input_data_filepath=data/interim/train_selection.pkl --output_model_filepath=data/external/model_linear_reg.pkl --output_metrics_filepath=reports/metrics/metrics_linear_reg.txt
+    deps:
+    - data/interim
+    outs:
+    - data/external:
+        persist: true
+    - reports/metrics:
+        persist: true
+    - reports/figures:
+        persist: true
+  
+  run_inference:
+    cmd: python src/models/run_inference.py --input_filepath=data/processed/val_data.pkl --input_model_filepath=data/external/model.pkl --csv_outputh_path=reports/kaggle/ansvers.csv
+    deps:
+    - data/processed
+    - data/external
+    outs:
+    - reports/kaggle:
+        persist: true

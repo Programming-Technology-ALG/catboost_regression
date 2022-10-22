@@ -8,10 +8,8 @@ import click
 import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
-from sklearn.model_selection import train_test_split
 from src.utils import save_as_pickle, load_as_pickle
-import pandas as pd
-from catboost import CatBoostRegressor, metrics, Pool
+from catboost import CatBoostRegressor, Pool
 from sklearn.metrics import mean_absolute_error
 
 
@@ -21,13 +19,10 @@ from sklearn.metrics import mean_absolute_error
 @click.option('--output_model_filepath', type=click.Path())
 @click.option('--output_metrics_filepath')
 @click.option('--plot_file')
-def main(input_data_filepath, output_model_filepath, output_metrics_filepath, plot_file):
-    """ Runs data processing scripts to turn raw data from (../raw) into
-        cleaned data ready to be analyzed (saved in ../processed).
-    """
-    logger = logging.getLogger(__name__)
-    logger.info('making final data set from raw data')
 
+def main(input_data_filepath, output_model_filepath, output_metrics_filepath, plot_file):
+    logger = logging.getLogger(__name__)
+    logger.info('training catboost model')
 
     X_train, X_test, Y_train, Y_test = load_as_pickle(input_data_filepath)
 
@@ -54,6 +49,8 @@ def main(input_data_filepath, output_model_filepath, output_metrics_filepath, pl
         f.write('MAE on train: {}\n'.format(mean_absolute_error(Y_train, model.predict(X_train))))
         f.write('MAE on test: {}\n'.format(mean_absolute_error(Y_test, model.predict(X_test))))
 
+    logger.info('metrics saved to {}'.format(output_metrics_filepath))
+    
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     logging.basicConfig(level=logging.INFO, format=log_fmt)

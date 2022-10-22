@@ -8,9 +8,7 @@ import click
 import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
-from sklearn.model_selection import train_test_split
-from src.utils import save_as_pickle, load_as_pickle
-from sklearn.metrics import mean_absolute_error
+from src.utils import load_as_pickle
 import pandas as pd
 
 
@@ -21,16 +19,14 @@ import pandas as pd
 @click.option('--csv_outputh_path', type=click.Path())
 
 def main(input_filepath, input_model_filepath, csv_outputh_path):
-    """ Runs data processing scripts to turn raw data from (../raw) into
-        cleaned data ready to be analyzed (saved in ../processed).
-    """
     logger = logging.getLogger(__name__)
-    logger.info('making final data set from raw data')
+    logger.info('run inference')
 
     model = load_as_pickle(input_model_filepath)
 
     pd.DataFrame(model.predict(load_as_pickle(input_filepath))).to_csv(csv_outputh_path,index=False)
-
+    logger.info('saved to file {}'.format(csv_outputh_path))
+    
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     logging.basicConfig(level=logging.INFO, format=log_fmt)

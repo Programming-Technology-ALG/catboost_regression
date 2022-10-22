@@ -1,0 +1,91 @@
+schema: '2.0'
+stages:
+  preprocess data:
+    cmd: "python src/data/make_dataset.py --input_filepath=data/raw/train.csv --output_data_filepath=data/processed/train_data.pkl\
+      \ --output_encoder_filepath=data/processed/transformer.pkl\npython src/data/make_dataset.py\
+      \ --input_filepath=data/raw/test.csv --output_data_filepath=data/processed/val_data.pkl\
+      \ --is_val=True --output_encoder_filepath=data/processed/transformer.pkl\n"
+    deps:
+    - path: data/raw
+      md5: 9f92c797e11a403a6ff47f53e42b3d17.dir
+      size: 957325
+      nfiles: 4
+    outs:
+    - path: data/processed
+      md5: a61a6125d74f5dd4f5ad03630db04290.dir
+      size: 7704247
+      nfiles: 5
+  data_separation:
+    cmd: python src/models/make_split.py --input_data_filepath=data/processed/train_data.pkl
+      --output_selection_path=data/interim/train_selection.pkl
+    deps:
+    - path: data/processed
+      md5: a61a6125d74f5dd4f5ad03630db04290.dir
+      size: 7704247
+      nfiles: 5
+    outs:
+    - path: data/interim
+      md5: 5990ca0057af69cfeceafd2a92dc3515.dir
+      size: 3854680
+      nfiles: 2
+  train_catboost:
+    cmd: "python src/models/train_model.py --input_data_filepath=data/interim/train_selection.pkl\
+      \ --output_model_filepath=data/external/model.pkl --output_metrics_filepath=reports/metrics/metrics.txt\
+      \ --plot_file=reports/figures/learning_curve.html\npython src/models/linear_reg.py\
+      \ --input_data_filepath=data/interim/train_selection.pkl --output_model_filepath=data/external/model_linear_reg.pkl\
+      \ --output_metrics_filepath=reports/metrics/metrics_linear_reg.txt\n"
+    deps:
+    - path: data/interim
+      md5: 5990ca0057af69cfeceafd2a92dc3515.dir
+      size: 3854680
+      nfiles: 2
+    outs:
+    - path: data/external
+      md5: d5fdd5f7283b9a7fa6efc347df27a7e0.dir
+      size: 1441563
+      nfiles: 4
+    - path: reports
+      md5: 2d3d7c9f3cae05e635bbd128359c4a09.dir
+      size: 59434
+      nfiles: 6
+  train_cmodels:
+    cmd: "python src/models/train_model.py --input_data_filepath=data/interim/train_selection.pkl\
+      \ --output_model_filepath=data/external/model.pkl --output_metrics_filepath=reports/metrics/metrics.txt\
+      \ --plot_file=reports/figures/learning_curve.html\npython src/models/linear_reg.py\
+      \ --input_data_filepath=data/interim/train_selection.pkl --output_model_filepath=data/external/model_linear_reg.pkl\
+      \ --output_metrics_filepath=reports/metrics/metrics_linear_reg.txt\n"
+    deps:
+    - path: data/interim
+      md5: 5990ca0057af69cfeceafd2a92dc3515.dir
+      size: 3854680
+      nfiles: 2
+    outs:
+    - path: data/external
+      md5: 76bbae7b25a6951d2982ccd35ffa68b5.dir
+      size: 1441563
+      nfiles: 4
+    - path: reports/figures
+      md5: 78c2e99651939a34f5715225538f12af.dir
+      size: 32155
+      nfiles: 2
+    - path: reports/metrics
+      md5: e06dab409616d0728d9101619e50a931.dir
+      size: 129
+      nfiles: 2
+  run_inference:
+    cmd: python src/models/run_inference.py --input_filepath=data/processed/val_data.pkl
+      --input_model_filepath=data/external/model.pkl --csv_outputh_path=reports/kaggle/ansvers.csv
+    deps:
+    - path: data/external
+      md5: 76bbae7b25a6951d2982ccd35ffa68b5.dir
+      size: 1441563
+      nfiles: 4
+    - path: data/processed
+      md5: a61a6125d74f5dd4f5ad03630db04290.dir
+      size: 7704247
+      nfiles: 5
+    outs:
+    - path: reports/kaggle
+      md5: d6f15147e2184c67e08520255ef40592.dir
+      size: 27150
+      nfiles: 1
