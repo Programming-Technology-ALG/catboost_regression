@@ -23,10 +23,7 @@ def main(input_filepath, output_data_filepath):
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
 
-    df = pd.read_pickle(input_filepath)
-    df = make_condition_feature(df, is_zavoronok, "is_zavoronok")
-    df = make_condition_feature(df, early_drinking, "early_drinking")
-    save_as_pickle(df, output_data_filepath)
+    build_all_features(input_filepath, output_data_filepath)
 
     logger.info(f'Target saved to {output_data_filepath}')
 

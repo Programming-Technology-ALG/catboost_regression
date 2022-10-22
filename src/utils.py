@@ -11,28 +11,14 @@ import numpy as np
 
 
 
-def save_as_pickle(obj: Union[DataFrame, PandasIndex], path: str) -> None:
-    if isinstance(obj, DataFrame):
-        obj.to_pickle(path)
-    elif isinstance(obj, PandasIndex):
-        with open('path', 'wb') as f:
-            pickle.dump(obj, f)
+def save_as_pickle(obj, path) -> None:
+    with open(path, 'wb') as f:
+        pickle.dump(obj, f)
 
 
-def save_model(model, path: str) -> None:
-    pickle.dump(model, open(path, 'wb'))
-    
-    
-def load_model(path: str):
-    return pickle.load(open(path, 'rb'))
-
-
-def save_encoder(encoder, path: str) -> None:
-    pickle.dump(encoder, open(path, 'wb'))
-
-
-def load_encoder(path: str):
-    return pickle.load(open(path, 'rb'))
+def load_as_pickle(path):
+    with open(path, 'rb') as f:
+        return pickle.load(f)
 
 
 real_pipe = Pipeline([
@@ -48,6 +34,5 @@ cat_pipe = Pipeline([
 
 preprocess_pipe = ColumnTransformer(transformers=[
     ('real_cols', real_pipe,    cfg.SS),
-    ('cat_cols',  cat_pipe,     cfg.OHE),
-    ('target',    'passthrough', cfg.TARGET_COLS)
+    ('cat_cols',  cat_pipe,     cfg.OHE)
 ])

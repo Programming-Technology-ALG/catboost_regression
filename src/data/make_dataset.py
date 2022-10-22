@@ -10,18 +10,19 @@ import click
 import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
-from src.utils import save_as_pickle
+from src.utils import save_as_pickle, load_as_pickle
 from src.data.preprocess import preprocess_data
 import pandas as pd
 
 
 @click.command()
-@click.option('--input_filepath',           type=click.Path(exists=True))
-@click.option('--output_data_filepath',     type=click.Path())
-@click.option('--output_encoder_filepath',   type=click.Path())
+@click.option('--input_filepath',     default="../data/raw/train.csv",       type=click.Path(exists=True))
+@click.option('--output_data_filepath', default="../data/processed/train_data.pkl",    type=click.Path())
+@click.option('--output_encoder_filepath', default="../data/processed/preprocess_data_pipe.pkl",   type=click.Path())
+@click.option('--output_target_filepath', default="../data/processed/train_target.pkl",   type=click.Path())
 @click.option('--is_val', default=False, type=bool)
 
-def main(input_filepath, output_data_filepath, output_encoder_filepath, is_val):
+def main(input_filepath, output_data_filepath, output_target_filepath,  output_encoder_filepath, is_val):
     """ Runs data processing scripts to turn raw data from (../raw) into
         cleaned data ready to be analyzed (saved in ../processed).
     """
@@ -29,8 +30,13 @@ def main(input_filepath, output_data_filepath, output_encoder_filepath, is_val):
     logger.info('making final data set from raw data')
 
     df = pd.read_csv(input_filepath)
+
     df = preprocess_data(df, output_encoder_filepath, is_val)
     save_as_pickle(df, output_data_filepath)
+    df = load_as_pickle(output_data_filepath)
+
+    save_as_pickle(df, output_target_filepath)
+    df = load_as_pickle(output_target_filepath)
     logger.info(f'Dataset saved to {output_data_filepath}')
 
 
