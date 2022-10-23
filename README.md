@@ -1,4 +1,13 @@
-catboost_reg
+Catboost Regreassion model
+
+
+>**Why MSE metric?**
+MSE is used to check how close estimates or forecasts are to actual values. Lower the MSE, the closer is forecast to actual. This is used as a model evaluation measure for regression models and the lower value indicates a better fit.
+
+$$\text{MSE}=\frac{1}{n}\sum_{i=1}^{n}{(y_i-\hat{y_i})^2}$$
+
+
+
 ==============================
 
 A short description of the project.

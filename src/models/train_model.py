@@ -10,7 +10,7 @@ from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 from src.utils import save_as_pickle, load_as_pickle
 from catboost import CatBoostRegressor, Pool
-from sklearn.metrics import mean_absolute_error
+from sklearn.metrics import mean_squared_error
 
 
 
@@ -46,8 +46,8 @@ def main(input_data_filepath, output_model_filepath, output_metrics_filepath, pl
     save_as_pickle(model, output_model_filepath)
 
     with open(output_metrics_filepath, 'w') as f:
-        f.write('MAE on train: {}\n'.format(mean_absolute_error(Y_train, model.predict(X_train))))
-        f.write('MAE on test: {}\n'.format(mean_absolute_error(Y_test, model.predict(X_test))))
+        f.write('MSE on train: {}\n'.format(mean_squared_error(Y_train, model.predict(X_train))))
+        f.write('MSE on test: {}\n'.format(mean_squared_error(Y_test, model.predict(X_test))))
 
     logger.info('metrics saved to {}'.format(output_metrics_filepath))
     

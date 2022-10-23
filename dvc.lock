@@ -61,23 +61,23 @@ stages:
       nfiles: 2
     outs:
     - path: data/external
-      md5: 76bbae7b25a6951d2982ccd35ffa68b5.dir
+      md5: a3f95762c7c2b0e03913805a1d3060f8.dir
       size: 1441563
       nfiles: 4
     - path: reports/figures
-      md5: 78c2e99651939a34f5715225538f12af.dir
+      md5: ca0a134c21664faebd891f71a9a0b046.dir
       size: 32155
       nfiles: 2
     - path: reports/metrics
-      md5: e06dab409616d0728d9101619e50a931.dir
-      size: 129
+      md5: 2e3601cd43caa4df480b25adfa695aaa.dir
+      size: 131
       nfiles: 2
   run_inference:
     cmd: python src/models/run_inference.py --input_filepath=data/processed/val_data.pkl
       --input_model_filepath=data/external/model.pkl --csv_outputh_path=reports/kaggle/ansvers.csv
     deps:
     - path: data/external
-      md5: 76bbae7b25a6951d2982ccd35ffa68b5.dir
+      md5: a3f95762c7c2b0e03913805a1d3060f8.dir
       size: 1441563
       nfiles: 4
     - path: data/processed
